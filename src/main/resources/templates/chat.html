@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href="/static/js/layui/css/layui.css">
+<link rel="stylesheet" href="/static/js/element-ui/index.css">
+<script src="/static/js/jquery-3.1.1.js"></script>
+<script src="/static/js/layui/layui.all.js"></script>
+<script src="/static/js/axios.js"></script>
+<script src="/static/js/util.js"></script>
+<script src="/static/js/qs.js" type="text/javascript"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="/static/js/vue.js"></script>
+<script src="/static/js/element-ui/index.js"></script>
+<style type="text/css">
+	body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.headImg_off{
+		-webkit-filter: grayscale(100%);
+		-moz-filter: grayscale(100%);
+		-ms-filter: grayscale(100%);
+		-o-filter: grayscale(100%);
+		filter: grayscale(100%);
+		filter: gray;
+	 }
+	.app{
+		width: 700px;
+		height: 522px;
+		border: solid 1px #E0E0E0;
+		margin-top: 2%;
+		display: flex;
+		flex-direction: row;
+		border-radius: 5px;
+	}
+	.app span {
+		cursor: default;
+	}
+	.myself-div{
+		width: 40px;
+		height: 100%;
+		border-right: solid 1px #E0E0E0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.friends-div{
+		width: 200px;
+		height: 100%;
+		border-right: solid 1px #E0E0E0;
+	}
+	.msg-div{
+		flex: 1;
+		height: 100%;
+		background-color: #F5F6F7;
+	}
+	.texthide {
+        overflow: hidden;
+        text-overflow: clip;
+        display: -webkit-box;
+        line-height: 14px;    
+        max-height: 14px;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+    .msg-num{
+    	border-radius: 14px;
+    	background-color: red;
+    	min-width: 14px;
+    	display: flex;
+    	justify-content: center;
+    	align-items: center;
+    	height: 14px;
+    	padding: 2px;
+    	font-size: 11px;
+    	line-height: 10px;
+    }
+    .friends-div-list{
+    	width: 100%;
+    	flex: 1;
+    	height: 480px;
+    	-webkit-user-select:none;
+	   	-moz-user-select:none;
+	   	-ms-user-select:none;
+	   	user-select:none;
+    }
+    .el-scrollbar__wrap {
+	    overflow-x: hidden;
+	}
+    .friends-div-friend-item:hover{
+    	background-color: #F2F2F2;
+    }
+    .msg_records_scrollbar_time_div{
+    	width: 100%;
+    	text-align: center;
+    	margin-top: 3px;
+    }
+    .msg_records_scrollbar_time_div_span{
+    	color: #797979;
+    	font-size: 8px;
+    	background-color: white;
+    	border-radius: 10px;
+    	padding-left: 5px;
+    	padding-right: 5px;
+    	padding-top: 2px;
+    	padding-bottom: 2px;
+    }
+</style>
+</head>
+<body>
+	<div id="app" class="app">
+		<div class="myself-div">
+			<div style="width: 30px;height: 30px;margin-top: 5px;position: relative;">
+				<img style="width: 30px;height: 30px;border-radius: 3px;" :src="my.headimgurl">
+				<i style="color: #22D07D;position: absolute;right: -2px;bottom: -1px;size: 3px;" class="el-icon-success"></i>
+			</div>
+		</div>
+		<div class="friends-div">
+			<div style="width: 100%;height: 40px;display: flex;justify-content: center;align-items: center;border-bottom: solid 1px #E0E0E0;">
+				<el-input
+					style="width: 150px;"
+					placeholder="搜索"
+					v-model="searchContent"
+					prefix-icon="el-icon-search"
+					size='small'>
+				</el-input>
+				<i style="size: 5px;font-weight: 800;color: #3C3C3C;margin-left: 10px;" class="el-icon-plus"></i>
+			</div>
+			<el-scrollbar class="friends-div-list">
+				<el-container class="friends-div-friend-item" v-for="friend in friends"
+					@dblclick.native=initiateDialogue(friend)>
+					<div style="width: 100%;display: flex;align-items: center;margin: 10px;">
+						<img v-if="friend.isLogin" :id="'friends_head_img_'+friend.username"
+							style="width: 40px;height: 40px;border-radius: 5px;"
+							:src="friend.headimgurl"/>
+						<img v-if="!friend.isLogin" class="headImg_off" :id="'friends_head_img_'+friend.username"
+							style="width: 40px;height: 40px;border-radius: 5px;"
+							:src="friend.headimgurl"/>
+						<div style="display: flex;flex-direction: column;margin-left: 5px;width: 95px;">
+							<span class="texthide" style="font-size: 14px;">{{friend.nickname}}</span>
+							<span class="texthide" style="margin-top: 3px;color: #797979;">{{friend.username}}</span>
+						</div>
+						<div v-if="friend.num" style="display: flex;flex-direction: column;margin-left: 5px;width: 35px;margin-left: 5px;">
+							<span style="margin-top: 3px;color: #797979;width: 100%;display: flex;justify-content: flex-end;">{{friend.time}}</span>
+							<div style="margin-top: 3px;color: white;width: 100%;display: flex;justify-content: flex-end;">
+								<span class="msg-num">{{friend.num}}</span>
+							</div>
+						</div>
+					</div>
+				</el-container>
+			</el-scrollbar>
+		</div>
+		<div class="msg-div">
+			<div style="width: 100%;height: 40px;border-bottom: solid 1px #E0E0E0;display: flex;align-items: flex-end;">
+				<div style="margin-bottom: 10px;margin-left: 10px;font-weight: 500;font-size: 15px;">
+					<span>{{friend.nickname}}</span><span v-if="friend.username">({{friend.username}})</span>
+				</div>
+			</div>
+			<div style="width: 100%;height: 482px;">
+				<el-scrollbar ref="msg_records_scrollbar" style="width: 100%;height: 350px;border-bottom: solid 1px #E0E0E0;">
+					<el-container class="friends-div-friend-item" v-for="record in records">
+						<el-container v-if="record.from!=my.username" style="margin: 10px;">
+							<div style="width: 100%;">
+								<div style="width: 100%;display: flex;">
+									<el-image
+										style="width: 30px;height: 30px;border-radius: 5px;"
+										:src="friend.headimgurl"></el-image>
+									<span style="max-width: 340px;margin-left: 10px;background-color: white;padding: 10px;border-radius: 3px;">
+										{{record.msg}}
+									</span>
+								</div>
+								<div class="msg_records_scrollbar_time_div">
+									<span class="msg_records_scrollbar_time_div_span">{{record.time}}</span>
+								</div>
+							</div>				
+						</el-container>
+						<el-container v-if="record.from==my.username" style="margin: 10px;">							
+							<div style="width: 100%;">
+								<div style="width: 100%;display: flex;justify-content: flex-end;">								
+									<span style="max-width: 340px;background-color: #1E6EFF;color: white;padding: 10px;border-radius: 3px;">
+										{{record.msg}}
+									</span>
+									<el-image
+										style="width: 30px;height: 30px;border-radius: 5px;margin-left: 10px;"
+										:src="my.headimgurl"></el-image>
+								</div>
+								<div class="msg_records_scrollbar_time_div">
+									<span class="msg_records_scrollbar_time_div_span">{{record.time}}</span>
+								</div>
+							</div>
+						</el-container>
+					</el-container>
+				</el-scrollbar>
+				<div style="width: 438px;height: 110px;background-color: white;padding: 10px;">
+					<textarea id="sendMsgContent" style="width: 100%;height: 80px;border: none;resize: none;" cols=""></textarea>
+					<div style="display: flex;justify-content: flex-end;">
+						<el-button @click="sendMsg()" size="mini">发送</el-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>	
+    var vue = new Vue({
+        el:"#app",
+        data: {
+        	my: {},
+            friends: null,
+            searchContent: '',
+            friend: [],
+            inputMsg: '',
+            allRecords: [],
+            records:[],
+            socket: null,
+            recordKey: '',
+        },
+        mounted(){
+        	var username = decodeURI(window.location.href).split("?username=")[1];        	
+        	console.log(this.friends);
+        	var socket, th = this;
+        	if (typeof (WebSocket) == "undefined") {
+        	    console.log("遗憾：您的浏览器不支持WebSocket");
+        	} else {
+        	    console.log("恭喜：您的浏览器支持WebSocket");
+        	    //实现化WebSocket对象
+        	    //指定要连接的服务器地址与端口建立连接
+        	    //注意ws、wss使用不同的端口。我使用自签名的证书测试，
+        	    //无法使用wss，浏览器打开WebSocket时报错
+        	    //ws对应http、wss对应https。
+        	    socket = new WebSocket("ws://localhost:8080/ws/asset");        
+        	    //连接打开事件
+        	   	socket.onopen = function() {
+        	        console.log("Socket 已打开");
+        	        socket.send(JSON.stringify({//登录
+    	            	action: 0,
+    	            	from: username
+    	            }));
+        	    };
+        	    //收到消息事件
+        	    socket.onmessage = function(msg) {
+        	    	//console.log(msg.data);
+        	    	//0：用户信息，1：好友列表，2：系统消息，3：消息，88：上线消息，98：未登录，99：离线消息
+        	    	var jsonObj = JSON.parse(msg.data);
+        	    	console.log(jsonObj);
+        	    	jsonObj.lastTime = th.formatter(jsonObj.lastTime);        	    	
+        	    	if(jsonObj.action == 0){
+        	    		th.my = jsonObj.msg;
+                	    th.getFriends();
+        	    	}else if(jsonObj.action == 1){
+        	    		var friends = jsonObj.msg;
+        	    		friends.forEach(item=>{
+        	    			item.time='';
+        	    		})
+        	    		th.friends = friends;
+        	    	}else if(jsonObj.action == 2){
+        	    		var key = 'msg_records_' + th.my.username + '_and_' + jsonObj.from;
+        	    		th.addLocalRecord(key, jsonObj);
+        	    	}else if(jsonObj.action == 3){
+        	    		var img = document.getElementById(jsonObj.from)
+        	    		if(img){
+        	    			img.classList.remove("headImg_off");
+        	    		}
+        	    	}else if(jsonObj.action == 88){
+        	    		var img = document.getElementById("friends_head_img_"+jsonObj.from)
+        	    		if(img){
+        	    			img.classList.remove("headImg_off");
+        	    		}
+        	    	}else if(jsonObj.action == 98){
+        	    		alert("请登录！");
+        	    	}else if(jsonObj.action == 99){
+        	    		var img = document.getElementById("friends_head_img_"+jsonObj.from)
+        	    		if(img){
+        	    			img.classList.add("headImg_off");
+        	    		}
+        	    	}else{
+        	    		 $("#messageId").append(jsonObj.msg + '<--' + jsonObj.from + "\n");
+        	    	}
+        	        
+        	    };        	    
+        	    //连接关闭事件
+        	    socket.onclose = function() {
+        	        console.log("Socket已关闭");
+        	    };
+        	    //发生了错误事件
+        	    socket.onerror = function() {
+        	        alert("Socket发生了错误");
+        	    }
+        	    //窗口关闭时，关闭连接
+        	    window.unload=function() {
+        	    	socket.close();
+        	    };
+        	    this.socket = socket;
+        	}
+        },
+        methods:{
+        	initiateDialogue(e){
+        		//console.log(e);
+        		this.friend = e;
+        		this.recordKey = 'msg_records_' + this.my.username + '_and_' + this.friend.username;
+        		this.getRecords();
+        	},
+        	sendMsg(){
+        		var el = document.getElementById("sendMsgContent");
+        		var strMsg = el.value;
+        		var jsonObj = { 
+        				action: 2,	//0：登录，1：获取好友列表，2：消息，
+        				from: this.my.username, 
+        				to:this.friend.username, 
+        				msg: strMsg, 
+        				type: 0,
+        				time: this.dateFormat(new Date())
+        			}
+        		this.socket.send(JSON.stringify(jsonObj));
+        		var key = 'msg_records_' + this.my.username + '_and_' + this.friend.username;
+        		this.addLocalRecord(key, jsonObj);
+        		el.value = '';
+        	},
+        	//添加记录进本地
+        	addLocalRecord(key, jsonObj){
+        		var records;
+        		if(this.friend.username != jsonObj.from){
+        			records = this.getData(key);
+        			if(records == null || records == undefined || records == ''){
+        				records = [];
+        			}
+        			records.push(jsonObj);
+        		}else{
+        			this.records.push(jsonObj);
+        			records = this.records;
+            		this.showLastRecord();
+        		}
+        		this.saveStoreRecords(key, records);
+        	},
+        	//时间格式化
+        	dateFormat(date) {
+        	    let ret, fmt = "YYYY-mm-dd HH:MM:SS";
+        	    const opt = {
+        	        "Y+": date.getFullYear().toString(),        // 年
+        	        "m+": (date.getMonth() + 1).toString(),     // 月
+        	        "d+": date.getDate().toString(),            // 日
+        	        "H+": date.getHours().toString(),           // 时
+        	        "M+": date.getMinutes().toString(),         // 分
+        	        "S+": date.getSeconds().toString()          // 秒
+        	        // 有其他格式化字符需求可以继续添加，必须转化成字符串
+        	    };
+        	    for (let k in opt) {
+        	        ret = new RegExp("(" + k + ")").exec(fmt);
+        	        if (ret) {
+        	            fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+        	        };
+        	    };
+        	    return fmt;
+        	},
+        	getFriends(){
+        		//获取好友列表
+    	        this.socket.send(JSON.stringify({
+	            	action: 1,
+	            	from: this.my.username
+	            }));
+        	},
+        	//保存聊天记录到本地
+        	saveStoreRecords(key, records){
+        		this.savaData(key, records);
+        	},
+        	getRecords(){
+        		var records = this.getData(this.recordKey);
+        		this.records = records;
+                this.showLastRecord();
+        	},
+        	showLastRecord(){
+        		var th = this; 
+        		setTimeout(function (){
+        			th.$refs['msg_records_scrollbar'].wrap.scrollTop = th.$refs['msg_records_scrollbar'].wrap.scrollHeight;
+        		}, 100);
+        	},
+        	savaData(key, value) {//将数据保存到本地
+        		if(key!=null&&key!=undefined&&key!='undefined'
+        				&&value!=null&&value!=undefined&&value!='undefined')
+        		localStorage[key] = JSON.stringify(value);
+        	},
+        	getData(key){//从本地读取数据
+        		if (`${key}` in localStorage){
+        			return JSON.parse(localStorage[key]);
+        		}
+        		return null;
+        	},
+        	formatter(value){
+        		if(value == null || value == undefined || value == ''){
+        			return '';
+        		}
+                arr = value.split(".");
+        		value = arr[0].replace("T"," ");
+                return value;
+            }
+        }
+    })
+</script>
+</html>

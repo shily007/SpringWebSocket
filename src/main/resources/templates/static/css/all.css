@@ -1,0 +1,174 @@
+/*全局css*/
+*{margin:0}
+body{color:#6f6f6f}
+.parentDiv{width: 100vw;height: 100vh}
+.pageBat{width:96%;padding:2%;}
+a{text-decoration: none}
+a:hover{cursor: pointer;}
+.htmlDiv{width:97%;margin-left:1.5%;min-height:94vh;padding:0.2vh 0;margin-top:2vh;background-color:white;box-shadow: 1px 1px 1px 1px #d3d3d3;border-radius:3px}
+.table{width: 100%;text-align: center;background-color:white;font-family: '锟斤拷锟斤拷';border-left:1px solid #e8e8e8;border-top:1px solid #e8e8e8}
+.table tr th{font-size: 15px;padding: 1vw 0.3vw;color:#868787;border-bottom:1px solid #e8e8e8;border-right:1px solid #e8e8e8}
+.table tr td{font-size: 14px;padding: 1vw 0.3vw;color:#868787;border-bottom:1px solid #e8e8e8;border-right:1px solid #e8e8e8}
+.addA{width:100%;text-align:right;padding:0.75vh 0}
+.addA a{color:#4da2de;display: inline-block;vertical-align: top}
+.serch{display: inline-block;vertical-align: top;float: left;font-size:16px}
+.serch select{height:25px;line-height:25px;margin-right:10px}
+.serch input{height:21px;line-height:21px;margin-right:10px}
+.serchBtn{background-color:#539bdd;color:white;border:0;border-radius:3px;}
+/* 编辑浮框设置 */
+.bak0{width:100%;height:100%;opacity: 0.5;background-color:black;position:fixed;top:0;left:0;z-index:66;display:none;z-index:66}
+.bak1{background-color:white;position:fixed;top:0;left:0;padding:0 4%;height:100vh;z-index:100;display:none;box-shadow: 0px 3px 18px rgba(100, 0, 0, 0.5);width:92%;}
+#dataActive{min-height:27vw;float:left;width:100%;}
+#dataActive1{min-height:3vw;border-top:1px solid #E5E5E5;float:left;width:100%}
+/* 浮框内容设置 */
+.titleEdit{width:100%;margin-bottom:3vh;font-size:18px;border-bottom:1px solid #E5E5E5;padding:1vh 0}
+.div0{width:100%;float:left;padding:1vh 0}
+.div1{width:8%;float:left;text-align:right;margin-top:2px}
+.div2{width:90%;float:left;}
+.divc{float:left;width:50%;padding:2px 0}
+.divc [type='checkbox']{float:left;width:15px;height:15px;margin-top:3px;
+ background-color: #fff;
+  border: 1px solid #c9c9c9;
+  border-radius: 2px;
+  outline: none;
+}
+.divc [type='radio']{float:left;width:15px;height:15px;margin-top:3px}
+.divc span{float:left;margin-left:2%;font-size:15px}
+/*  .inputx{width:85%;padding:0.4vh 1%;border:1px solid #c7c7c7;outline: none;border-radius:3px;box-shadow: 1px 1px 1px #9f9f9f} */
+.inputx,.textareax{
+	 width:99%;
+    border: 1px solid #DCDFE6;
+    padding: 7px 0;
+    color:#606266;
+    border-radius: 3px;
+    padding-left:1%;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+.inputxa{
+	 width:40.3%;
+    border: 1px solid #ccc;
+    padding: 7px 0;
+    color:#434343;
+    background: #F4F4F7;
+    border-radius: 3px;
+    padding-left:0.8%;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+.textareax{
+	height:8vh
+}
+/* .inputx,.inputxa,.textareax:focus{
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+} */
+.checkboxi{width:33%;display:inline-block;}
+.div2 .checkboxi{width:33%;display:inline-block;}
+.checkboxi input{margin-right:3px;width:14.5px;height:14.5px;display:inline-block;vertical-align: middle;}
+.checkboxiSpan{display:inline-block;vertical-align: middle;width:80%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;font-size:14px;}
+
+.checkboxi1{width:100%;display:inline-block;}
+.checkboxi1 input{margin-right:3px;width:14.5px;height:14.5px;}
+
+.checkDiv{padding:1vh;margin:0.4px 4%;background-color:#97df87;color:white;width:50%;float: right;text-align:center;border-radius:1px;cursor: pointer;}
+.chooseLk{background-color:#79c267;border:1px solid #439431;border-radius:3px;font-weight:bold}
+
+.disableInput{background-color:#d7d7d7;cursor: not-allowed;}
+
+.inputFile{margin-left:-6em;width:6em;opacity: 0;cursor: pointer;}
+
+.selectx{width:86%;padding:4.5px 0;border:1px solid #ccc;
+padding-left:2px;
+color:#434343;
+outline: none;border-radius:3px;
+background: #F4F4F7;
+font-size:15px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+.selectx:focus{
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+}
+.form-control{width:100%;padding:4.5px 0;border:1px solid #ccc;
+padding-left:2px;
+color:#434343;
+outline: none;border-radius:3px;
+background: #F4F4F7;
+font-size:15px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+.form-group{float:left;width:27.8%;margin-left:1%}
+
+.divs{max-height: 10vh;overflow-y:scroll}/* 滑动设置 */
+
+/* 内容页顶部标题设置 */
+.title{width:98%;padding:0.5% 1%;border-bottom:1px solid #e3e3e3;}
+
+/* 编辑保存按钮 */
+.saveBtn{background-color:#409EFF;color:white;padding:1vh 1.5vh;border:0;border-radius:5px;margin:1vh;cursor: pointer;outline: none;}
+
+.qxBtn{background-color:white;color:#000;border:1px solid #cecece;padding:1vh 1.5vh;border-radius:4px;margin:1vh;cursor: pointer;outline: none;}
+
+/* i图标样式  */
+.fa-book{color:#83c817;font-size:1.9vh} /* 题目  */
+.fa-edit{color:#539bdd;font-size:1.9vh} /* 编辑 */
+
+.bsQuestion{  /* 设置一个宽度 */
+	overflow: hidden; /* 超出后隐藏 */
+	text-overflow:ellipsis; white-space: nowrap; /* 隐藏的部分用省略号表示 */
+	 white-space: nowrap;/* 内容不能换行 */
+	}
+.filename{display: inline-block; _zoom:1; _display: inline; line-height: 20px; font-size: 12px; padding: 4px 0; width: 80px;
+    -o-text-overflow:ellipsis;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}	
+/* 正确、错误 */
+.success{color:#33b15f}
+.error{color:red}
+/* vue 加载闪烁问题 */
+[v-cloak]{
+    display:none;
+}
+/* 操作等待加载 */
+.load1{display:none;width:100%;height:100%;background-color:#131313;opacity:0.1;position:fixed;top:0;left:0;z-index:105}
+.load2{display:none;width:5%;left:47.5%;top:40%;position:fixed;z-index:106}
+
+/*******  通用页面样式     *******/
+.oneMenu{color:white;padding:1vh 0}
+		.oneText{font-size:1.9vh;color:white}
+		.oneText i{font-size:2.2vh}
+		.oneText span{margin-left:1vh}
+		.oneText .fa-angle-right{font-size:2.5vh;float:right}
+		.twoDiv{width:88%;margin-left:12%;margin-top:1vh;display:none}
+		.twoMenu{padding:0.5vh 0;font-size:1.7vh}
+		a{text-decoration: none}		
+		.editBtn,.ableBtn,.disableBtn,.addBtn,.jBtn,.zxBtn,.unClick,.infoBtn{color:white;font-size:1.6vh;margin-right:0.5vh;border:0;border-radius:3px;padding:0.2vh 1vh}
+		.editBtn{background-color:#539bdd}
+		.ableBtn{background-color:#ea4a56}
+		.addBtn{background-color:#ed6225}
+		.disableBtn{background-color:#83c817}
+		.jBtn{background-color:#33b15f}
+		.zxBtn{background-color:#d69e4f}
+		.unClick{background-color:#cccccc}
+		.infoBtn{background-color:#f0a888}

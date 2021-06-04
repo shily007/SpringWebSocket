@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>websocket登录</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style type="text/css">
+        h3,h4{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+
+<h3>WebSocket测试，客户端接收到的消息如下：</h3>
+
+<div style="width: 500px;height: 400px;">
+	<input id="username" placeholder="请输入用户名！">
+	<button onclick="login()">登录</button>
+</div>
+<script type="text/javascript">
+    function login() {
+		var username = document.getElementById("username").value;
+		if(username==undefined || username == ''){
+			alert("请输入用户名!");
+			return;
+		}
+		window.location.href = "chat.html?username="+username;
+	}
+</script>
+
+</body>
+</html>
