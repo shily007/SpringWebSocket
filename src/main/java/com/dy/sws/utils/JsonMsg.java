@@ -30,6 +30,8 @@ public class JsonMsg {
 	private Integer type = 0;
 	//消息内容
 	private Object msg;
+	//状态：0：未读，1：已读
+	private Integer state = 0;
 	//时间
 	private LocalDateTime time = LocalDateTime.now();
 	

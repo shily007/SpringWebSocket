@@ -144,6 +144,7 @@ public class WebSocketServer {
 		if (user == null) {
 			sendMessage(session, new JsonMsg(3, "用户不存在！"));
 			onClose(session);
+			return;
 		}
 		user.setLastTime(LocalDateTime.now());
 		webSocketServer.userService.updateById(user);
